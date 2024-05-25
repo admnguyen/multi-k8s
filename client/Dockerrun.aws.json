@@ -15,7 +15,7 @@
         },
         {
             "name": "worker",
-            "image": "adam97n/worker-server",
+            "image": "adam97n/multi-worker",
             "essential": false
         },
         {
@@ -27,7 +27,8 @@
                     "hostPort": 80,
                     "containerPort": 80
                 }
-            ]
+            ],
+            "links": ["client", "server"]
         }
     ]
 }
