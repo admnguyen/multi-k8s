@@ -15,12 +15,13 @@
         },
         {
             "name": "worker",
+            "hostname": "worker",
             "image": "adam97n/multi-worker",
             "essential": false
         },
         {
             "name": "nginx",
-            "image": "adam97n/nginx-server",
+            "image": "adam97n/multi-nginx",
             "essential": true,
             "portMappings": [
                 {
