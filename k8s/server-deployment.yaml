@@ -1,0 +1,37 @@
+apiVersion: apps/v1 # The API version of the Kubernetes resource, here it's apps/v1
+kind: Deployment # Specifies the kind of resource, in this case, a Deployment
+metadata:
+  name: server-deployment # Name of the Deployment, used to uniquely identify it
+spec: # Specification of the desired state of the Deployment
+  replicas: 3 # Number of desired pods/replicas
+  selector: # Selector is used to identify the set of pods that this deployment should manage
+    matchLabels:
+      component: server # The key-value pair must match the labels of the pods that the deployment will manage
+  template: # Template for the pods that the deployment manages
+    metadata:
+      labels:
+        component: server # Label applied to pods; must match the selector above
+    spec: # Specification of the pod's containers, volumes, etc.
+      containers:
+        - name: server # Name of the container within the pod
+          image: adam97n/multi-server # Docker image to use for the container
+          ports:
+            - containerPort: 5000 # The container port to expose
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: '6379'
+            - name: PGUSER
+              value: postgres
+            - name: PGHOST
+              value: postgres-cluster-ip-service
+            - name: PGPORT
+              value: '5432'
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
