@@ -1,4 +1,6 @@
 sudo: required
+dist: focal
+  - 22.04
 services:
   - docker
 env:
